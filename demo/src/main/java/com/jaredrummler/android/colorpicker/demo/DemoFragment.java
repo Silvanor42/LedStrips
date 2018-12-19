@@ -9,7 +9,7 @@ public class DemoFragment extends BasePreferenceFragment {
 
   private static final String TAG = "DemoFragment";
 
-  private static final String KEY_DEFAULT_COLOR = "default_color";
+  private static final String KEY_DEFAULT_COLOR = "led1";
 
   @Override public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
     setPreferencesFromResource(R.xml.main, rootKey);
