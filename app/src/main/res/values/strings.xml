@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">Led Strips</string>
-    <string name="defaultcolor">762949ca</string>
-    <string name="Colorpickerdes">Pick a color</string>
-    <string name="Colorpickername">Colorpicker</string>
-</resources>
