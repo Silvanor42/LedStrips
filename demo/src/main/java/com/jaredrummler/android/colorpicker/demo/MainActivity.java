@@ -24,6 +24,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.jaredrummler.android.colorpicker.ColorPickerDialog;
@@ -39,10 +41,16 @@ public class MainActivity extends AppCompatActivity implements ColorPickerDialog
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    if (savedInstanceState == null) {
-      getSupportFragmentManager().beginTransaction().add(android.R.id.content, new DemoFragment()).commit();
+      setContentView(R.layout.mainlayout);
+
+      findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          getSupportFragmentManager().beginTransaction().add(android.R.id.content, new DemoFragment()).commit();
+        }
+      });
     }
-  }
+
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.main, menu);

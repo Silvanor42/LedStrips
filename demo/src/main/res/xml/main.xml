@@ -1,11 +1,8 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
                   xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <!-- https://stackoverflow.com/questions/18509369 -->
-    <!-- https://issuetracker.google.com/issues/111907042 -->
-
     <PreferenceCategory
-            android:title="Demo"
+
+            android:title="Choose your color"
             app:iconSpaceReserved="false">
         <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
                 android:defaultValue="0xFF3F51B5"
@@ -17,7 +14,7 @@
                 app:cpv_previewSize="large"/>
 
         <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
-                android:defaultValue="0xFF009688"
+                android:defaultValue="0xFF3F51B5"
                 android:key="led2"
                 android:summary="Led strip 2"
                 android:title="Eetkamer"
@@ -51,6 +48,5 @@
                 app:iconSpaceReserved="false"
                 app:cpv_colorPresets="@array/demo_colors"
                 app:cpv_previewSize="large"/>
-
     </PreferenceCategory>
 </PreferenceScreen>
