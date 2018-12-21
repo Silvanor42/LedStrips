@@ -40,15 +40,16 @@ public class MainActivity extends AppCompatActivity implements ColorPickerDialog
 
 
   @Override protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-      setContentView(R.layout.mainlayout);
-
-      findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-          getSupportFragmentManager().beginTransaction().add(android.R.id.content, new DemoFragment()).commit();
-        }
-      });
+      super.onCreate(savedInstanceState);
+//      setContentView(R.layout.mainlayout);
+//
+//      findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+      getSupportFragmentManager().beginTransaction().add(android.R.id.content, new DemoFragment()).commit();
+//          setContentView(R.layout.blank);
+//  }
+//      });
     }
 
 
