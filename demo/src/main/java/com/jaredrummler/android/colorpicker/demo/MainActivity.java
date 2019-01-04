@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements ColorPickerDialog
         return true;
       case R.id.menu_github:
         try {
-          startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/jaredrummler/ColorPicker")));
+          startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/Silvanor42/LedStrips")));
         } catch (ActivityNotFoundException ignored) {
         }
         return true;
