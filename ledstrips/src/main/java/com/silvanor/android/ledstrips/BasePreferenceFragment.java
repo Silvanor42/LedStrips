@@ -1,4 +1,4 @@
-package com.jaredrummler.android.colorpicker.demo;
+package com.silvanor.android.ledstrips;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
@@ -11,6 +11,7 @@ import androidx.preference.PreferenceGroupAdapter;
 import androidx.preference.PreferenceScreen;
 import androidx.preference.PreferenceViewHolder;
 import androidx.recyclerview.widget.RecyclerView;
+import com.jaredrummler.android.colorpicker.demo.R;
 
 // Fix for PreferenceFragmentCompat spacing.
 //
