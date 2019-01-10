@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.jaredrummler.android.colorpicker.demo;
+package com.silvanor.android.ledstrips;
 
 import android.content.SharedPreferences;
 import android.graphics.PixelFormat;
@@ -27,6 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.jaredrummler.android.colorpicker.ColorPanelView;
 import com.jaredrummler.android.colorpicker.ColorPickerView;
 import com.jaredrummler.android.colorpicker.ColorPickerView.OnColorChangedListener;
+import com.jaredrummler.android.colorpicker.demo.R;
 
 public class ColorPickerActivity extends AppCompatActivity implements OnColorChangedListener, View.OnClickListener {
 

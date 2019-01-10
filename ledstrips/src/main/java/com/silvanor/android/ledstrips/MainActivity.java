@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.jaredrummler.android.colorpicker.demo;
+package com.silvanor.android.ledstrips;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -24,12 +24,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.jaredrummler.android.colorpicker.ColorPickerDialog;
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener;
+import com.jaredrummler.android.colorpicker.demo.R;
 
 public class MainActivity extends AppCompatActivity implements ColorPickerDialogListener {
 

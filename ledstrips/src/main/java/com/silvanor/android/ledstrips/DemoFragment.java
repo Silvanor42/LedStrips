@@ -1,9 +1,10 @@
-package com.jaredrummler.android.colorpicker.demo;
+package com.silvanor.android.ledstrips;
 
 import android.os.Bundle;
 import android.util.Log;
 import androidx.preference.Preference;
 import com.jaredrummler.android.colorpicker.ColorPreferenceCompat;
+import com.jaredrummler.android.colorpicker.demo.R;
 
 public class DemoFragment extends BasePreferenceFragment {
 
