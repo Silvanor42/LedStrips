@@ -24,6 +24,7 @@ public class DemoFragment extends BasePreferenceFragment {
           Log.d(TAG, "New default color is: #" + newDefaultColor);
         }
         return true;
+
       }
     });
   }
