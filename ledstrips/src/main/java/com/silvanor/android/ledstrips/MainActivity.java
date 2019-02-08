@@ -16,15 +16,19 @@
 
 package com.silvanor.android.ledstrips;
 
+import android.bluetooth.BluetoothManager;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import com.jaredrummler.android.colorpicker.ColorPickerDialog;
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener;
@@ -38,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements ColorPickerDialog
   private static final int DIALOG_ID = 0;
 
 
+  @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
   @Override protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       getSupportFragmentManager().beginTransaction().add(android.R.id.content, new DemoFragment()).commit();
