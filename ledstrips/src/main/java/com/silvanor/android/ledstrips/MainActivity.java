@@ -18,45 +18,46 @@ package com.silvanor.android.ledstrips;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothSocket;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-import android.os.ParcelUuid;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import com.jaredrummler.android.colorpicker.ColorPickerDialog;
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener;
 import com.jaredrummler.android.colorpicker.demo.R;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Set;
 import java.util.UUID;
 
-
+@RequiresApi(api = Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
 public class MainActivity extends AppCompatActivity implements ColorPickerDialogListener {
 
   private static final String TAG = "MainActivity";
 
   private static final int DIALOG_ID = 0;
   BluetoothAdapter btAdapter;
-  InputStream bluetoothInput;
-  OutputStream bluetoothOutput;
-  private int REQUEST_ENABLE_BT;
+  public static InputStream bluetoothInput;
+  public static OutputStream bluetoothOutput;
   @Override protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       getSupportFragmentManager().beginTransaction().add(android.R.id.content, new DemoFragment()).commit();
       btAdapter =  BluetoothAdapter.getDefaultAdapter();
       getStreams();
     }
+
 
   void getStreams()
   {
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements ColorPickerDialog
     String uuid = "PLAATS UUID HIER";
     for (BluetoothDevice device: myBondedDevices)
     {
-      if(device.getUuids().toString().equals(uuid))
+      if(device.getUuids()[0].toString().equals(uuid))      //might be a problem
       {
         try {
           BluetoothSocket sock = device.createRfcommSocketToServiceRecord(UUID.fromString(uuid));
@@ -99,7 +100,8 @@ public class MainActivity extends AppCompatActivity implements ColorPickerDialog
       case R.id.menu_github:
         try {
           startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/Silvanor42/LedStrips")));
-        } catch (ActivityNotFoundException ignored) {
+        }
+        catch (ActivityNotFoundException ignored) {
         }
         return true;
     }
@@ -118,6 +120,12 @@ public class MainActivity extends AppCompatActivity implements ColorPickerDialog
 
   @Override public void onDialogDismissed(int dialogId) {
     Log.d(TAG, "onDialogDismissed() called with: dialogId = [" + dialogId + "]");
+  }
+  public static byte[] getRGB(int intColor) {
+    byte r = (byte) (Color.red(intColor)& 0xFF);
+    byte g = (byte) (Color.green(intColor)& 0xFF);
+    byte b = (byte) (Color.blue(intColor)& 0xFF);
+    return new byte[] {r, g, b};
   }
 }
  
