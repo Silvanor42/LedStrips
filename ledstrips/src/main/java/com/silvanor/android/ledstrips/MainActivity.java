@@ -19,6 +19,7 @@ package com.silvanor.android.ledstrips;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
+import android.bluetooth.BluetoothSocket;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Color;
@@ -28,12 +29,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+import android.os.ParcelUuid;
 import androidx.appcompat.app.AppCompatActivity;
 import com.jaredrummler.android.colorpicker.ColorPickerDialog;
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener;
 import com.jaredrummler.android.colorpicker.demo.R;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Set;
+import java.util.UUID;
 
 
 public class MainActivity extends AppCompatActivity implements ColorPickerDialogListener {
@@ -41,16 +47,37 @@ public class MainActivity extends AppCompatActivity implements ColorPickerDialog
   private static final String TAG = "MainActivity";
 
   private static final int DIALOG_ID = 0;
-  BluetoothAdapter btAdapter =  BluetoothAdapter.getDefaultAdapter();
+  BluetoothAdapter btAdapter;
+  InputStream bluetoothInput;
+  OutputStream bluetoothOutput;
   private int REQUEST_ENABLE_BT;
   @Override protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       getSupportFragmentManager().beginTransaction().add(android.R.id.content, new DemoFragment()).commit();
-      btAdapter.enable();
-      Set<BluetoothDevice> myBondedDevices = btAdapter.getBondedDevices();
+      btAdapter =  BluetoothAdapter.getDefaultAdapter();
+      getStreams();
     }
 
-
+  void getStreams()
+  {
+    btAdapter.enable();
+    Set<BluetoothDevice> myBondedDevices = btAdapter.getBondedDevices();
+    String uuid = "PLAATS UUID HIER";
+    for (BluetoothDevice device: myBondedDevices)
+    {
+      if(device.getUuids().toString().equals(uuid))
+      {
+        try {
+          BluetoothSocket sock = device.createRfcommSocketToServiceRecord(UUID.fromString(uuid));
+          sock.connect();
+          bluetoothInput = sock.getInputStream();
+          bluetoothOutput = sock.getOutputStream();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
 
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
