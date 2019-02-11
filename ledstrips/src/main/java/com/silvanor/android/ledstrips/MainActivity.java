@@ -16,37 +16,41 @@
 
 package com.silvanor.android.ledstrips;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import com.jaredrummler.android.colorpicker.ColorPickerDialog;
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener;
 import com.jaredrummler.android.colorpicker.demo.R;
 
+import java.util.Set;
+
+
 public class MainActivity extends AppCompatActivity implements ColorPickerDialogListener {
 
   private static final String TAG = "MainActivity";
 
-  // Give your color picker dialog unique IDs if you have multiple dialogs.
   private static final int DIALOG_ID = 0;
-
-
-  @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
+  BluetoothAdapter btAdapter =  BluetoothAdapter.getDefaultAdapter();
+  private int REQUEST_ENABLE_BT;
   @Override protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       getSupportFragmentManager().beginTransaction().add(android.R.id.content, new DemoFragment()).commit();
+      btAdapter.enable();
+      Set<BluetoothDevice> myBondedDevices = btAdapter.getBondedDevices();
     }
+
+
 
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
@@ -88,6 +92,5 @@ public class MainActivity extends AppCompatActivity implements ColorPickerDialog
   @Override public void onDialogDismissed(int dialogId) {
     Log.d(TAG, "onDialogDismissed() called with: dialogId = [" + dialogId + "]");
   }
-
 }
  
