@@ -13,7 +13,6 @@ import static com.silvanor.android.ledstrips.MainActivity.getRGB;
 
 public class DemoFragment extends BasePreferenceFragment {
 
-  private static final String TAG = "DemoFragment";
   private static final String LED1 = "led1";
   private static final String LED2 = "led2";
   private static final String LED3 = "led3";
@@ -22,7 +21,6 @@ public class DemoFragment extends BasePreferenceFragment {
   @Override public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
     setPreferencesFromResource(R.xml.main, rootKey);
 
-    // Example showing how we can get the new color when it is changed:
     ColorPreferenceCompat Strip1 = (ColorPreferenceCompat) findPreference(LED1);
       Strip1.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
           @RequiresApi(api = Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
@@ -32,7 +30,7 @@ public class DemoFragment extends BasePreferenceFragment {
                   byte[] rgb = getRGB(rgbint);
                   try {
                       bluetoothOutput.write(1);
-                      bluetoothOutput.write(rgb, 0, 3);
+                      bluetoothOutput.write(rgb);
                   }
                   catch (IOException e) {
                       e.printStackTrace();
@@ -48,7 +46,6 @@ public class DemoFragment extends BasePreferenceFragment {
           @Override public boolean onPreferenceChange(Preference preference, Object newValue) {
               LED2.equals(preference.getKey()); {
                   String newDefaultColor = Integer.toHexString((int) newValue);
-                  Log.d(TAG, "New default color is: #" + newDefaultColor);
               }
               return true;
 
@@ -59,7 +56,6 @@ public class DemoFragment extends BasePreferenceFragment {
           @Override public boolean onPreferenceChange(Preference preference, Object newValue) {
               LED3.equals(preference.getKey()); {
                   String newDefaultColor = Integer.toHexString((int) newValue);
-                  Log.d(TAG, "New default color is: #" + newDefaultColor);
               }
               return true;
 
@@ -70,7 +66,6 @@ public class DemoFragment extends BasePreferenceFragment {
           @Override public boolean onPreferenceChange(Preference preference, Object newValue) {
               LED4.equals(preference.getKey()); {
                   String newDefaultColor = Integer.toHexString((int) newValue);
-                  Log.d(TAG, "New default color is: #" + newDefaultColor);
               }
               return true;
 
