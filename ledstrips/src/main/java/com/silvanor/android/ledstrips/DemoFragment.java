@@ -8,6 +8,8 @@ import androidx.preference.Preference;
 import com.jaredrummler.android.colorpicker.ColorPreferenceCompat;
 import com.jaredrummler.android.colorpicker.demo.R;
 import java.io.IOException;
+
+import static android.content.ContentValues.TAG;
 import static com.silvanor.android.ledstrips.MainActivity.bluetoothOutput;
 import static com.silvanor.android.ledstrips.MainActivity.getRGB;
 
@@ -17,21 +19,23 @@ public class DemoFragment extends BasePreferenceFragment {
   private static final String LED2 = "led2";
   private static final String LED3 = "led3";
   private static final String LED4 = "led4";
-
+    @RequiresApi(api = Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
   @Override public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+
     setPreferencesFromResource(R.xml.main, rootKey);
 
     ColorPreferenceCompat Strip1 = (ColorPreferenceCompat) findPreference(LED1);
       Strip1.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-          @RequiresApi(api = Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+
           @Override public boolean onPreferenceChange(Preference preference, Object newValue) {
               LED1.equals(preference.getKey()); {
                   int rgbint = (int) newValue;
-                  byte[] rgb = getRGB(rgbint);
+                  int [] rgb = getRGB(rgbint);
                   try {
                       bluetoothOutput.write(1);
-                      bluetoothOutput.write(rgb);
-                  }
+                      for(int k=0; k<3; k++){
+                      bluetoothOutput.write(rgb[k]);
+                  }}
                   catch (IOException e) {
                       e.printStackTrace();
                   }
@@ -45,7 +49,14 @@ public class DemoFragment extends BasePreferenceFragment {
       Strip2.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
           @Override public boolean onPreferenceChange(Preference preference, Object newValue) {
               LED2.equals(preference.getKey()); {
-                  String newDefaultColor = Integer.toHexString((int) newValue);
+                  int rgbint = (int) newValue;
+                  int[] rgb = getRGB(rgbint);
+                  try {
+                      bluetoothOutput.write( 2);
+                  } catch (IOException e) {
+                      e.printStackTrace();
+                  }
+                  Log.d(TAG,"test " + rgb[0]);
               }
               return true;
 

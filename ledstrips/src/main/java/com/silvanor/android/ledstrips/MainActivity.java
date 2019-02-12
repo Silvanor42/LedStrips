@@ -42,43 +42,68 @@ import java.io.OutputStream;
 import java.util.Set;
 import java.util.UUID;
 
+import static android.content.ContentValues.TAG;
+
 @RequiresApi(api = Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
 public class MainActivity extends AppCompatActivity implements ColorPickerDialogListener {
 
   private static final String TAG = "MainActivity";
 
   private static final int DIALOG_ID = 0;
-  BluetoothAdapter btAdapter;
+  public BluetoothAdapter btAdapter;
+  public BluetoothDevice btDevice;
+  public BluetoothSocket btSocket;
   public static InputStream bluetoothInput;
   public static OutputStream bluetoothOutput;
+  public static final String SERVICE_ID = "00001101-0000-1000-8000-00805f9b34fb"; //SPP UUID
+  public static final String SERVICE_ADDRESS = "98:D3:21:FC:92:BC"; // HC-05 BT ADDRESS
+
+
   @Override protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       getSupportFragmentManager().beginTransaction().add(android.R.id.content, new DemoFragment()).commit();
       btAdapter =  BluetoothAdapter.getDefaultAdapter();
-      getStreams();
+      btAdapter.enable();
+      btDevice = btAdapter.getRemoteDevice(SERVICE_ADDRESS);
+    ConnectThread connectThread = null;
+    try {
+      connectThread = new ConnectThread(btDevice);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    connectThread.start();
+
     }
 
+  private class ConnectThread extends Thread {
+    private final BluetoothDevice thisDevice;
 
-  void getStreams()
-  {
-    btAdapter.enable();
-    Set<BluetoothDevice> myBondedDevices = btAdapter.getBondedDevices();
-    String uuid = "PLAATS UUID HIER";
-    for (BluetoothDevice device: myBondedDevices)
-    {
-      if(device.getUuids()[0].toString().equals(uuid))      //might be a problem
-      {
+    public ConnectThread(BluetoothDevice device) throws IOException {
+      BluetoothSocket tmp = null;
+      thisDevice = device;
+      try {
+        tmp = thisDevice.createRfcommSocketToServiceRecord(UUID.fromString(SERVICE_ID));
+      } catch (IOException e) {
+        Log.e("TEST", "Can't connect to service");
+      }
+      btSocket = tmp;
+      btSocket.connect();
+      while (bluetoothOutput == null) {
         try {
-          BluetoothSocket sock = device.createRfcommSocketToServiceRecord(UUID.fromString(uuid));
-          sock.connect();
-          bluetoothInput = sock.getInputStream();
-          bluetoothOutput = sock.getOutputStream();
+          Log.d("TEST1", "Can't connect to service");
+          bluetoothOutput = btSocket.getOutputStream();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+        try {
+          bluetoothInput = btSocket.getInputStream();
         } catch (IOException e) {
           e.printStackTrace();
         }
       }
     }
   }
+
 
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
@@ -121,11 +146,14 @@ public class MainActivity extends AppCompatActivity implements ColorPickerDialog
   @Override public void onDialogDismissed(int dialogId) {
     Log.d(TAG, "onDialogDismissed() called with: dialogId = [" + dialogId + "]");
   }
-  public static byte[] getRGB(int intColor) {
-    byte r = (byte) (Color.red(intColor)& 0xFF);
-    byte g = (byte) (Color.green(intColor)& 0xFF);
-    byte b = (byte) (Color.blue(intColor)& 0xFF);
-    return new byte[] {r, g, b};
+  public static int[] getRGB(int intColor) {
+
+    int r = Color.red(intColor);
+    int g = Color.green(intColor);
+    int b = Color.blue(intColor);
+    Log.d(TAG,"testr " + r);
+    Log.d(TAG, "testg " + g);
+    Log.d(TAG, "testb " + b);
+    return new int[] {r, g, b};
   }
 }
- 
