@@ -3,21 +3,17 @@ package com.silvanor.android.ledstrips;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-
 import androidx.annotation.RequiresApi;
 import androidx.preference.Preference;
 import com.jaredrummler.android.colorpicker.ColorPreferenceCompat;
 import com.jaredrummler.android.colorpicker.demo.R;
-
-import java.io.DataOutputStream;
-
+import java.io.IOException;
 import static com.silvanor.android.ledstrips.MainActivity.bluetoothOutput;
 import static com.silvanor.android.ledstrips.MainActivity.getRGB;
 
 public class DemoFragment extends BasePreferenceFragment {
 
   private static final String TAG = "DemoFragment";
-
   private static final String LED1 = "led1";
   private static final String LED2 = "led2";
   private static final String LED3 = "led3";
@@ -34,8 +30,13 @@ public class DemoFragment extends BasePreferenceFragment {
               LED1.equals(preference.getKey()); {
                   int rgbint = (int) newValue;
                   byte[] rgb = getRGB(rgbint);
-                    new DataOutputStream(bluetoothOutput.write(1));
-                    new DataOutputStream(bluetoothOutput.write(rgb, 0, 3));
+                  try {
+                      bluetoothOutput.write(1);
+                      bluetoothOutput.write(rgb, 0, 3);
+                  }
+                  catch (IOException e) {
+                      e.printStackTrace();
+                  }
 
               }
               return true;
