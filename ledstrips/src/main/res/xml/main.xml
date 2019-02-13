@@ -18,6 +18,7 @@
 
 
         <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
+            android:layout="@layout/preferencelayout"
                 android:defaultValue="0xFF3F51B5"
                 android:key="led2"
                 android:summary="Led strip 2"
@@ -27,6 +28,7 @@
                 app:cpv_previewSize="large"/>
 
         <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
+            android:layout="@layout/preferencelayout"
                 android:defaultValue="0xFF3F51B5"
                 android:key="led3"
                 android:summary="Led strip 3"
@@ -36,6 +38,7 @@
                 app:cpv_previewSize="large"/>
 
         <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
+            android:layout="@layout/preferencelayout"
                 android:defaultValue="0xFF3F51B5"
                 android:key="led4"
                 android:summary="Led strip 4"

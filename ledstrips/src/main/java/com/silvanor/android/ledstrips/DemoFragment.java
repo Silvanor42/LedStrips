@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.RequiresApi;
 import androidx.preference.Preference;
+
+import com.jaredrummler.android.colorpicker.ColorPanelView;
 import com.jaredrummler.android.colorpicker.ColorPreferenceCompat;
 import com.jaredrummler.android.colorpicker.demo.R;
 import java.io.IOException;
@@ -29,7 +31,9 @@ public class DemoFragment extends BasePreferenceFragment {
 
           @Override public boolean onPreferenceChange(Preference preference, Object newValue) {
               LED1.equals(preference.getKey()); {
+                  ColorPanelView newColorPanelView = getView().findViewById(R.id.colorPanelView1);
                   int rgbint = (int) newValue;
+                  newColorPanelView.setColor(rgbint);
                   int [] rgb = getRGB(rgbint);
                   try {
                       bluetoothOutput.write(1);

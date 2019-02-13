@@ -17,6 +17,7 @@ void loop(){
     data[k] = Bluetooth.read();
     k=k+1;
   }
+  delay(100);
   k=0;
   readParameter(data[0]);
 }

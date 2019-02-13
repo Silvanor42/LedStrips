@@ -91,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements ColorPickerDialog
       btSocket.connect();
       while (bluetoothOutput == null) {
         try {
-          Log.d("TEST1", "Can't connect to service");
           bluetoothOutput = btSocket.getOutputStream();
         } catch (IOException e) {
           e.printStackTrace();

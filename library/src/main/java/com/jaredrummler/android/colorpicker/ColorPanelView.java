@@ -31,6 +31,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -47,6 +48,8 @@ import java.util.Locale;
 public class ColorPanelView extends View {
 
   private final static int DEFAULT_BORDER_COLOR = 0xFF6E6E6E;
+  private static final String TAG ="something"  ;
+
 
   private Drawable alphaPattern;
   private Paint borderPaint;
@@ -61,7 +64,7 @@ public class ColorPanelView extends View {
   /* The width in pixels of the border surrounding the color panel. */
   private int borderWidthPx;
   private int borderColor = DEFAULT_BORDER_COLOR;
-  private int color = Color.BLACK;
+  private int color = Color.BLUE;
   private int shape;
 
   public ColorPanelView(Context context) {
@@ -221,6 +224,8 @@ public class ColorPanelView extends View {
    * @param color the color value
    */
   public void setColor(int color) {
+    Log.d(TAG,"colortest"+color);
+    Log.d(TAG,"colortest"+this.color);
     this.color = color;
     invalidate();
   }
