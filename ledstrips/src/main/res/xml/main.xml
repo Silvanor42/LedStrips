@@ -1,10 +1,13 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
                   xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory
-
             android:title="Choose your color"
             app:iconSpaceReserved="false">
+
+
+
         <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
+                android:layout="@layout/preferencelayout"
                 android:defaultValue="0xFF3F51B5"
                 android:key="led1"
                 android:summary="Led strip 1"
@@ -12,6 +15,7 @@
                 app:iconSpaceReserved="false"
                 app:cpv_colorPresets="@array/demo_colors"
                 app:cpv_previewSize="large"/>
+
 
         <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
                 android:defaultValue="0xFF3F51B5"
@@ -55,11 +59,6 @@
     </SeekBarPreference>
 </PreferenceCategory>
     </PreferenceCategory>
-
-
-
-
-
 </PreferenceScreen>
 
 

@@ -64,7 +64,8 @@ public class MainActivity extends AppCompatActivity implements ColorPickerDialog
       getSupportFragmentManager().beginTransaction().add(android.R.id.content, new DemoFragment()).commit();
       btAdapter =  BluetoothAdapter.getDefaultAdapter();
       btAdapter.enable();
-      btDevice = btAdapter.getRemoteDevice(SERVICE_ADDRESS);
+        btDevice = btAdapter.getRemoteDevice(SERVICE_ADDRESS);
+
     ConnectThread connectThread = null;
     try {
       connectThread = new ConnectThread(btDevice);
@@ -151,9 +152,6 @@ public class MainActivity extends AppCompatActivity implements ColorPickerDialog
     int r = Color.red(intColor);
     int g = Color.green(intColor);
     int b = Color.blue(intColor);
-    Log.d(TAG,"testr " + r);
-    Log.d(TAG, "testg " + g);
-    Log.d(TAG, "testb " + b);
     return new int[] {r, g, b};
   }
 }

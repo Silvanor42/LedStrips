@@ -56,7 +56,6 @@ public class DemoFragment extends BasePreferenceFragment {
                   } catch (IOException e) {
                       e.printStackTrace();
                   }
-                  Log.d(TAG,"test " + rgb[0]);
               }
               return true;
 

@@ -8,13 +8,14 @@ import android.util.AttributeSet;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
+import androidx.preference.CheckBoxPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceViewHolder;
 
 /**
  * A Preference to select a color
  */
-public class ColorPreferenceCompat extends Preference implements ColorPickerDialogListener {
+public class ColorPreferenceCompat extends  Preference implements ColorPickerDialogListener {
 
   private static final int SIZE_NORMAL = 0;
   private static final int SIZE_LARGE = 1;
@@ -204,4 +205,5 @@ public class ColorPreferenceCompat extends Preference implements ColorPickerDial
 
     void onShowColorPickerDialog(String title, int currentColor);
   }
+
 }
